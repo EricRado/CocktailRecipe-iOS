@@ -11,6 +11,7 @@ import Foundation
 enum NetworkError: String, Error {
 	case missingURL = "URL is nil."
 	case parameterEncodingFailed = "Parameter encoding failed."
+    case unknown
 }
 
 final class NetworkManager {
@@ -34,19 +35,18 @@ final class NetworkManager {
 		do {
 			let request = try buildRequest(from: endpoint)
 			session.dataTask(with: request) { (data, response, error) in
-				guard error == nil else {
-					completion(.failure(error!))
-					return
-				}
-				if let data = data {
+				if let error = error {
+                    completion(.failure(error))
+                } else if let data = data {
 					do {
 						let models = try JSONDecoder().decode([T].self, from: data)
 						completion(.success(models))
 					} catch let error {
 						completion(.failure(error))
 					}
-				}
-			}
+                } else {
+                    completion(.failure(NetworkError.unknown))
+                }
             }.resume()
 		} catch let error {
 			completion(.failure(error))
@@ -57,19 +57,18 @@ final class NetworkManager {
 		do {
 			let request = try buildRequest(from: endpoint)
 			session.dataTask(with: request) { (data, response, error) in
-				guard error == nil else {
-					completion(.failure(error!))
-					return
-				}
-				if let data = data {
+                if let error = error {
+                    completion(.failure(error))
+				} else if let data = data {
 					do {
 						let model = try JSONDecoder().decode(T.self, from: data)
 						completion(.success(model))
 					} catch let error {
 						completion(.failure(error))
 					}
-				}
-			}
+                } else {
+                    completion(.failure(NetworkError.unknown))
+                }
 			}.resume()
 		} catch let error {
 			completion(.failure(error))
