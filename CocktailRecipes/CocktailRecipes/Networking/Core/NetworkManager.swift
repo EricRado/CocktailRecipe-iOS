@@ -14,16 +14,7 @@ enum NetworkError: String, Error {
 }
 
 final class NetworkManager {
-	static var shared = NetworkManager()
 	private let apiKey: String
-	private let session = URLSession.shared
-
-	private init() {
-		guard let path = Bundle.main.path(forResource: "APIKey", ofType: "plist"),
-			let xml = FileManager.default.contents(atPath: path) else { fatalError("APIKey.plist not found") }
-		let apiKey = try? JSONDecoder().decode(String.self, from: xml)
-		self.apiKey = apiKey ?? "1"
-	}
     private let session: URLSession
     
     init(session: URLSession = URLSession.shared) {
