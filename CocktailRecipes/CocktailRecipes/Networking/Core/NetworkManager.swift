@@ -56,6 +56,7 @@ final class NetworkManager {
 					}
 				}
 			}
+            }.resume()
 		} catch let error {
 			completion(.failure(error))
 		}
@@ -78,6 +79,7 @@ final class NetworkManager {
 					}
 				}
 			}
+			}.resume()
 		} catch let error {
 			completion(.failure(error))
 		}
