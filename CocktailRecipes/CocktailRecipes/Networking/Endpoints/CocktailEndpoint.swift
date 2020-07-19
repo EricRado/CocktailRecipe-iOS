@@ -12,9 +12,9 @@ enum CocktailEndpoint {
 	case popular
 	case latest
 	case random
-	case search(name: String)
-	case search(id: String)
-	case search(ingredient: String)
+	case searchWithId(String)
+	case searchWithName(String)
+	case searchWithIngredient(String)
 	case firstLetter(letter: String)
 	case thumbnail(name: String)
 }
