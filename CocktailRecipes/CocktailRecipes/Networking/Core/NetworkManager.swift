@@ -31,28 +31,6 @@ final class NetworkManager {
         self.session = session
     }
 
-	func request<T: Decodable>(_ endpoint: EndpointConstructable, completion: @escaping (Result<[T], Error>) -> Void) {
-		do {
-			let request = try buildRequest(from: endpoint)
-			session.dataTask(with: request) { (data, response, error) in
-				if let error = error {
-                    completion(.failure(error))
-                } else if let data = data {
-					do {
-						let models = try JSONDecoder().decode([T].self, from: data)
-						completion(.success(models))
-					} catch let error {
-						completion(.failure(error))
-					}
-                } else {
-                    completion(.failure(NetworkError.unknown))
-                }
-            }.resume()
-		} catch let error {
-			completion(.failure(error))
-		}
-	}
-
 	func request<T: Decodable>(_ endpoint: EndpointConstructable, completion: @escaping (Result<T, Error>) -> Void) {
 		do {
 			let request = try buildRequest(from: endpoint)
