@@ -19,6 +19,7 @@
 		47E38EDB24C39ECD002115C0 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EDA24C39ECD002115C0 /* HTTPMethod.swift */; };
 		47E38EDF24C3A77A002115C0 /* IngredientEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EDE24C3A77A002115C0 /* IngredientEndpoint.swift */; };
 		47E38EE324C3B517002115C0 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EE224C3B517002115C0 /* HTTPTask.swift */; };
+		47E38EE524C3EF06002115C0 /* URLParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EE424C3EF06002115C0 /* URLParameterEncoder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		47E38EDA24C39ECD002115C0 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		47E38EDE24C3A77A002115C0 /* IngredientEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientEndpoint.swift; sourceTree = "<group>"; };
 		47E38EE224C3B517002115C0 /* HTTPTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
+		47E38EE424C3EF06002115C0 /* URLParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParameterEncoder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +228,7 @@
 				47E38EDB24C39ECD002115C0 /* HTTPMethod.swift in Sources */,
 				47E38EB624C37621002115C0 /* ViewController.swift in Sources */,
 				47E38EB224C37621002115C0 /* AppDelegate.swift in Sources */,
+				47E38EE524C3EF06002115C0 /* URLParameterEncoder.swift in Sources */,
 				47E38EB424C37621002115C0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
