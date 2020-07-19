@@ -22,6 +22,8 @@
 		47E38EE124C3B178002115C0 /* APIKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 47E38EE024C3B178002115C0 /* APIKey.plist */; };
 		47E38EE324C3B517002115C0 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EE224C3B517002115C0 /* HTTPTask.swift */; };
 		47E38EE524C3EF06002115C0 /* URLParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EE424C3EF06002115C0 /* URLParameterEncoder.swift */; };
+		47E38EEA24C410D2002115C0 /* Drink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EE924C410D2002115C0 /* Drink.swift */; };
+		47E38EEC24C410E3002115C0 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EEB24C410E3002115C0 /* Ingredient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,8 @@
 		47E38EE024C3B178002115C0 /* APIKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKey.plist; sourceTree = "<group>"; };
 		47E38EE224C3B517002115C0 /* HTTPTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		47E38EE424C3EF06002115C0 /* URLParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParameterEncoder.swift; sourceTree = "<group>"; };
+		47E38EE924C410D2002115C0 /* Drink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drink.swift; sourceTree = "<group>"; };
+		47E38EEB24C410E3002115C0 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,7 @@
 		47E38ED324C38254002115C0 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				47E38EE824C410C3002115C0 /* Models */,
 				47E38ED924C39E9A002115C0 /* Core */,
 				47E38ED424C39AD2002115C0 /* Endpoints */,
 			);
@@ -145,6 +150,15 @@
 				47E38EE424C3EF06002115C0 /* URLParameterEncoder.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		47E38EE824C410C3002115C0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				47E38EE924C410D2002115C0 /* Drink.swift */,
+				47E38EEB24C410E3002115C0 /* Ingredient.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47E38EEA24C410D2002115C0 /* Drink.swift in Sources */,
 				47E38ED824C39DB5002115C0 /* CocktailEndpoint.swift in Sources */,
 				47E38EDF24C3A77A002115C0 /* IngredientEndpoint.swift in Sources */,
 				47E38ED624C39D02002115C0 /* EndpointConstructable.swift in Sources */,
@@ -256,6 +271,7 @@
 				47E38EDB24C39ECD002115C0 /* HTTPMethod.swift in Sources */,
 				47E38EDD24C3A25B002115C0 /* NetworkManager.swift in Sources */,
 				47E38EB624C37621002115C0 /* ViewController.swift in Sources */,
+				47E38EEC24C410E3002115C0 /* Ingredient.swift in Sources */,
 				47E38EB224C37621002115C0 /* AppDelegate.swift in Sources */,
 				47E38EE524C3EF06002115C0 /* URLParameterEncoder.swift in Sources */,
 				47E38EB424C37621002115C0 /* SceneDelegate.swift in Sources */,
