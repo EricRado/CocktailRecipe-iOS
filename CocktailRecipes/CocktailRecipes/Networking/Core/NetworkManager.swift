@@ -90,11 +90,7 @@ final class NetworkManager {
 		case .request:
 			request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 		case.requestParameters(let parameters):
-			do {
-				try encodeParameter(parameters: parameters, with: &request)
-			} catch {
-				throw error
-			}
+			try encodeParameter(parameters: parameters, with: &request)
 		}
 
 		return request
@@ -102,10 +98,6 @@ final class NetworkManager {
 
 	private func encodeParameter(parameters: Parameters, with request: inout URLRequest) throws {
 		let parameterEncoder = URLParameterEncoder()
-		do {
-			try parameterEncoder.encode(urlRequest: &request, with: parameters)
-		} catch {
-			throw error
-		}
+        try parameterEncoder.encode(urlRequest: &request, with: parameters)
 	}
 }
