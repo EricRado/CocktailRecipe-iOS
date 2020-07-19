@@ -10,5 +10,28 @@ import Foundation
 
 enum IngredientEndpoint {
 	case search(name: String)
-	case thumbnail(name: String)
+}
+
+extension IngredientEndpoint: EndpointConstructable {
+	var path: String {
+		switch self {
+		case .search:
+			return "/search.php"
+		}
+	}
+
+	var httpMethod: HTTPMethod {
+		switch self {
+		case .search:
+			return .get
+		}
+	}
+
+	var httpTask: HTTPTask {
+		switch self {
+		case .search(let name):
+			return .requestParameters(["i": name])
+		}
+	}
+
 }
