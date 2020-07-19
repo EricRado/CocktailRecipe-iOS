@@ -24,6 +24,20 @@ final class NetworkManager {
 		let apiKey = try? JSONDecoder().decode(String.self, from: xml)
 		self.apiKey = apiKey ?? "1"
 	}
+    private let session: URLSession
+    
+    init(session: URLSession = URLSession.shared) {
+        
+        guard let path = Bundle.main.path(forResource: "APIKey", ofType: "plist"),
+            let xml = FileManager.default.contents(atPath: path) else {
+                fatalError("APIKey.plist not found")
+        }
+        
+        let apiKey = try? JSONDecoder().decode(String.self, from: xml)
+        self.apiKey = apiKey ?? "1"
+        
+        self.session = session
+    }
 
 	func request<T: Decodable>(_ endpoint: EndpointConstructable, completion: @escaping (Result<[T], Error>) -> Void) {
 		do {
