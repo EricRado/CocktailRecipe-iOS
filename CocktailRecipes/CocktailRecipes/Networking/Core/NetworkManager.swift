@@ -11,59 +11,43 @@ import Foundation
 enum NetworkError: String, Error {
 	case missingURL = "URL is nil."
 	case parameterEncodingFailed = "Parameter encoding failed."
+    case unknown
 }
 
 final class NetworkManager {
-	static var shared = NetworkManager()
 	private let apiKey: String
-	private let session = URLSession.shared
-
-	private init() {
-		guard let path = Bundle.main.path(forResource: "APIKey", ofType: "plist"),
-			let xml = FileManager.default.contents(atPath: path) else { fatalError("APIKey.plist not found") }
-		let apiKey = try? JSONDecoder().decode(String.self, from: xml)
-		self.apiKey = apiKey ?? "1"
-	}
-
-	func request<T: Decodable>(_ endpoint: EndpointConstructable, completion: @escaping (Result<[T], Error>) -> Void) {
-		do {
-			let request = try buildRequest(from: endpoint)
-			session.dataTask(with: request) { (data, response, error) in
-				guard error == nil else {
-					completion(.failure(error!))
-					return
-				}
-				if let data = data {
-					do {
-						let models = try JSONDecoder().decode([T].self, from: data)
-						completion(.success(models))
-					} catch let error {
-						completion(.failure(error))
-					}
-				}
-			}
-		} catch let error {
-			completion(.failure(error))
-		}
-	}
+    private let session: URLSession
+    
+    init(session: URLSession = URLSession.shared) {
+        
+        guard let path = Bundle.main.path(forResource: "APIKey", ofType: "plist"),
+            let xml = FileManager.default.contents(atPath: path) else {
+                fatalError("APIKey.plist not found")
+        }
+        
+        let apiKey = try? JSONDecoder().decode(String.self, from: xml)
+        self.apiKey = apiKey ?? "1"
+        
+        self.session = session
+    }
 
 	func request<T: Decodable>(_ endpoint: EndpointConstructable, completion: @escaping (Result<T, Error>) -> Void) {
 		do {
 			let request = try buildRequest(from: endpoint)
 			session.dataTask(with: request) { (data, response, error) in
-				guard error == nil else {
-					completion(.failure(error!))
-					return
-				}
-				if let data = data {
+                if let error = error {
+                    completion(.failure(error))
+				} else if let data = data {
 					do {
 						let model = try JSONDecoder().decode(T.self, from: data)
 						completion(.success(model))
 					} catch let error {
 						completion(.failure(error))
 					}
-				}
-			}
+                } else {
+                    completion(.failure(NetworkError.unknown))
+                }
+			}.resume()
 		} catch let error {
 			completion(.failure(error))
 		}
@@ -84,11 +68,7 @@ final class NetworkManager {
 		case .request:
 			request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 		case.requestParameters(let parameters):
-			do {
-				try encodeParameter(parameters: parameters, with: &request)
-			} catch {
-				throw error
-			}
+			try encodeParameter(parameters: parameters, with: &request)
 		}
 
 		return request
@@ -96,10 +76,6 @@ final class NetworkManager {
 
 	private func encodeParameter(parameters: Parameters, with request: inout URLRequest) throws {
 		let parameterEncoder = URLParameterEncoder()
-		do {
-			try parameterEncoder.encode(urlRequest: &request, with: parameters)
-		} catch {
-			throw error
-		}
+        try parameterEncoder.encode(urlRequest: &request, with: parameters)
 	}
 }
