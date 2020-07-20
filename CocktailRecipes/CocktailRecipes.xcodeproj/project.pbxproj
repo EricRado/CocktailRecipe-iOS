@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		47E38EB224C37621002115C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EB124C37621002115C0 /* AppDelegate.swift */; };
 		47E38EB424C37621002115C0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EB324C37621002115C0 /* SceneDelegate.swift */; };
-		47E38EB624C37621002115C0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EB524C37621002115C0 /* ViewController.swift */; };
 		47E38EBB24C37622002115C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47E38EBA24C37622002115C0 /* Assets.xcassets */; };
 		47E38EBE24C37622002115C0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47E38EBC24C37622002115C0 /* LaunchScreen.storyboard */; };
 		47E38EC924C37622002115C0 /* CocktailRecipesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EC824C37622002115C0 /* CocktailRecipesTests.swift */; };
@@ -41,7 +40,6 @@
 		47E38EAE24C37621002115C0 /* CocktailRecipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocktailRecipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47E38EB124C37621002115C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47E38EB324C37621002115C0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		47E38EB524C37621002115C0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		47E38EBA24C37622002115C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47E38EBD24C37622002115C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47E38EBF24C37622002115C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,7 +102,6 @@
 				47E38ED324C38254002115C0 /* Networking */,
 				47E38EB124C37621002115C0 /* AppDelegate.swift */,
 				47E38EB324C37621002115C0 /* SceneDelegate.swift */,
-				47E38EB524C37621002115C0 /* ViewController.swift */,
 				47E38EBA24C37622002115C0 /* Assets.xcassets */,
 				47E38EBC24C37622002115C0 /* LaunchScreen.storyboard */,
 				47E38EBF24C37622002115C0 /* Info.plist */,
@@ -273,7 +270,6 @@
 				47E38EE324C3B517002115C0 /* HTTPTask.swift in Sources */,
 				47E38EDB24C39ECD002115C0 /* HTTPMethod.swift in Sources */,
 				47E38EDD24C3A25B002115C0 /* NetworkManager.swift in Sources */,
-				47E38EB624C37621002115C0 /* ViewController.swift in Sources */,
 				47E38EEC24C410E3002115C0 /* Ingredient.swift in Sources */,
 				47E38EB224C37621002115C0 /* AppDelegate.swift in Sources */,
 				47E38EE524C3EF06002115C0 /* URLParameterEncoder.swift in Sources */,
