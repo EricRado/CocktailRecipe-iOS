@@ -19,13 +19,11 @@ final class NetworkManager {
     private let session: URLSession
     
     init(session: URLSession = URLSession.shared) {
-        
-        guard let path = Bundle.main.path(forResource: "APIKey", ofType: "plist"),
-            let xml = FileManager.default.contents(atPath: path) else {
+		guard let path = Bundle.main.path(forResource: "APIKey", ofType: "plist"),
+            let dict = NSDictionary(contentsOfFile: path) else {
                 fatalError("APIKey.plist not found")
         }
-        
-        let apiKey = try? JSONDecoder().decode(String.self, from: xml)
+        let apiKey = dict["API_KEY"] as? String
         self.apiKey = apiKey ?? "1"
         
         self.session = session

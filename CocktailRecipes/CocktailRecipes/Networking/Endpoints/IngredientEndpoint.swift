@@ -16,7 +16,7 @@ extension IngredientEndpoint: EndpointConstructable {
 	var path: String {
 		switch self {
 		case .search:
-			return "/search.php"
+			return "search.php"
 		}
 	}
 

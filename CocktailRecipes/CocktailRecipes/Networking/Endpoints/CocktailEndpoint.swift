@@ -22,17 +22,17 @@ extension CocktailEndpoint: EndpointConstructable {
 	var path: String {
 		switch self {
 		case .popular:
-			return "/popular.php"
+			return "popular.php"
 		case .latest:
-			return "/latest.php"
+			return "latest.php"
 		case .random:
-			return "/randomselection.php"
+			return "randomselection.php"
 		case .searchWithId:
-			return "/lookup.php"
+			return "lookup.php"
 		case .searchWithName, .firstLetter:
-			return "/search.php"
+			return "search.php"
 		case .searchWithIngredient:
-			return "/filter.php"
+			return "filter.php"
 		}
 	}
 
