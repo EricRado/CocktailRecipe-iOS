@@ -8,11 +8,15 @@
 
 import Foundation
 
+struct DrinkResponse: Decodable {
+	let drinks: [Drink]
+}
+
 struct Drink: Decodable {
 	let id: String
 	let name: String
 	let category: String
-	let iba: String
+	let iba: String?
 	let alcoholic: String
 	let glass: String
 	let instructions: String
