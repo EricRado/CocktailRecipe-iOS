@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		471C094A24C74EA400E573EB /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C094924C74EA400E573EB /* HomePresenter.swift */; };
+		471C094D24C78D4B00E573EB /* LargeDrinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C094C24C78D4B00E573EB /* LargeDrinkCell.swift */; };
+		471C094F24C78D6B00E573EB /* SmallDrinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C094E24C78D6B00E573EB /* SmallDrinkCell.swift */; };
 		47E38EB224C37621002115C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EB124C37621002115C0 /* AppDelegate.swift */; };
 		47E38EB424C37621002115C0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EB324C37621002115C0 /* SceneDelegate.swift */; };
 		47E38EBB24C37622002115C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47E38EBA24C37622002115C0 /* Assets.xcassets */; };
@@ -43,6 +45,8 @@
 
 /* Begin PBXFileReference section */
 		471C094924C74EA400E573EB /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		471C094C24C78D4B00E573EB /* LargeDrinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeDrinkCell.swift; sourceTree = "<group>"; };
+		471C094E24C78D6B00E573EB /* SmallDrinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallDrinkCell.swift; sourceTree = "<group>"; };
 		47E38EAE24C37621002115C0 /* CocktailRecipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocktailRecipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47E38EB124C37621002115C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47E38EB324C37621002115C0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -337,11 +341,13 @@
 				47E38EF724C62DC0002115C0 /* DrinksViewController.swift in Sources */,
 				47E38EDD24C3A25B002115C0 /* NetworkManager.swift in Sources */,
 				471C094A24C74EA400E573EB /* HomePresenter.swift in Sources */,
+				471C094D24C78D4B00E573EB /* LargeDrinkCell.swift in Sources */,
 				47E38EEC24C410E3002115C0 /* Ingredient.swift in Sources */,
 				47E38EB224C37621002115C0 /* AppDelegate.swift in Sources */,
 				47E38EE524C3EF06002115C0 /* URLParameterEncoder.swift in Sources */,
 				47E38EF524C62D7D002115C0 /* HomeViewController.swift in Sources */,
 				47E38EB424C37621002115C0 /* SceneDelegate.swift in Sources */,
+				471C094F24C78D6B00E573EB /* SmallDrinkCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
