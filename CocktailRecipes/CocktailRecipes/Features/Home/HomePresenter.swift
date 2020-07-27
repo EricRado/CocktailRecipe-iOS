@@ -50,6 +50,23 @@ final class HomePresenter {
 		}
 	}
 
+	// MARK:- Data Sources
+	private var randomDrinks: [Drink] = []
+	private var latestDrinks: [Drink] = []
+	private var popularDrinks: [Drink] = []
+
+	private lazy var sections: [DrinkSection] = {
+		return [
+			DrinkSection(title: HomeSectionType.random.title, sectionType: .random),
+			DrinkSection(title: HomeSectionType.latest.title, sectionType: .latest),
+			DrinkSection(title: HomeSectionType.popular.title, sectionType: .popular)
+		]
+	}()
+
+	var sectionCount: Int {
+		return sections.count
+	}
+
 	init(networkManager: NetworkManager) {
 		self.networkManager = networkManager
 		fetchPopularDrinks()
@@ -67,5 +84,24 @@ final class HomePresenter {
 
 	private func fetchRandomDrinks() {
 		networkManager.request(CocktailEndpoint.random, completion: fetchRandomDrinksCompletion)
+	}
+
+	func sectionType(for sectionIndex: Int) -> HomeSectionType {
+		return sections[sectionIndex].sectionType
+	}
+
+	func title(for sectionIndex: Int) -> String {
+		return sections[sectionIndex].title
+	}
+
+	func dataSource(for sectionType: HomeSectionType) -> [Drink] {
+		switch sectionType {
+		case .random:
+			return randomDrinks
+		case .latest:
+			return latestDrinks
+		case .popular:
+			return popularDrinks
+		}
 	}
 }
