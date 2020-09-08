@@ -98,12 +98,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		471C094B24C78D1D00E573EB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				471C094C24C78D4B00E573EB /* LargeDrinkCell.swift */,
+				471C094E24C78D6B00E573EB /* SmallDrinkCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		471C095024C78E5E00E573EB /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				471C095124C78EBF00E573EB /* UICollectionViewCell+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		471C095324C7F3D900E573EB /* SupplementaryViews */ = {
+			isa = PBXGroup;
+			children = (
+				471C095424C7F40700E573EB /* SectionHeader.swift */,
+			);
+			path = SupplementaryViews;
+			sourceTree = "<group>";
+		};
+		4770304D24CA01FC00DD6D10 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4770304E24CA021B00DD6D10 /* DrinkSection.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		47E38EA524C37621002115C0 = {
@@ -205,6 +230,8 @@
 		47E38EF024C62CC4002115C0 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				4770304D24CA01FC00DD6D10 /* Models */,
+				471C094B24C78D1D00E573EB /* Views */,
 				47E38EF424C62D7D002115C0 /* HomeViewController.swift */,
 				471C094924C74EA400E573EB /* HomePresenter.swift */,
 			);
@@ -238,6 +265,7 @@
 		47E38EFC24C62E03002115C0 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				471C095324C7F3D900E573EB /* SupplementaryViews */,
 				47E38EED24C60D03002115C0 /* TabBarController.swift */,
 			);
 			path = Shared;
@@ -450,7 +478,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -504,7 +532,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -521,6 +549,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RK6ET38AYF;
 				INFOPLIST_FILE = CocktailRecipes/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -539,6 +568,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RK6ET38AYF;
 				INFOPLIST_FILE = CocktailRecipes/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
