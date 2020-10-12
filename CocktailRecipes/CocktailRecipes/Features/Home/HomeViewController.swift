@@ -15,7 +15,6 @@ final class HomeViewController: UIViewController {
 		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeLayout())
 		collectionView.backgroundColor = .white
 		collectionView.register(SmallDrinkCell.self, forCellWithReuseIdentifier: SmallDrinkCell.identifier)
-		collectionView.register(MediumDrinkCell.self, forCellWithReuseIdentifier: MediumDrinkCell.identifier)
 		collectionView.register(LargeDrinkCell.self, forCellWithReuseIdentifier: LargeDrinkCell.identifier)
 		collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.identifier)
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -75,14 +74,7 @@ extension HomeViewController: UICollectionViewDataSource {
 			}
 			cell.configure(image: nil, text: drink.name)
 			return cell
-		case .latest:
-			guard let cell = collectionView.dequeueReusableCell(
-				withReuseIdentifier: MediumDrinkCell.identifier, for: indexPath) as? MediumDrinkCell else {
-				return UICollectionViewCell()
-			}
-			cell.configure(image: nil, text: drink.name)
-			return cell
-		case .popular:
+		case .latest, .popular:
 			guard let cell = collectionView.dequeueReusableCell(
 				withReuseIdentifier: SmallDrinkCell.identifier, for: indexPath) as? SmallDrinkCell else {
 				return UICollectionViewCell()
