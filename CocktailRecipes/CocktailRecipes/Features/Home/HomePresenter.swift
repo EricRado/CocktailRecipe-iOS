@@ -9,9 +9,7 @@
 import Foundation
 
 protocol HomeViewDelegate: class {
-	func displayPopularDrinks(_ drinks: [Drink])
-	func displayLatestDrinks()
-	func displayRandomDrinks()
+	func reloadCollectionView(for section: Int)
 }
 
 final class HomePresenter {
@@ -21,9 +19,11 @@ final class HomePresenter {
 		guard let self = self else { return }
 		switch result {
 		case.success(let drinkResponse):
-			print(drinkResponse)
+			self.popularDrinks = drinkResponse.drinks
+			let sectionIndex = self.sections.firstIndex { $0.sectionType == .popular }
+			guard let sectionIndexUnwrapped = sectionIndex else { return }
 			DispatchQueue.main.async {
-				self.delegate?.displayPopularDrinks(drinkResponse.drinks)
+				self.delegate?.reloadCollectionView(for: sectionIndexUnwrapped)
 			}
 		case .failure(let error):
 			print(error.localizedDescription)
@@ -34,7 +34,12 @@ final class HomePresenter {
 		guard let self = self else { return }
 		switch result {
 		case .success(let drinkResponse):
-			print(drinkResponse)
+			self.latestDrinks = drinkResponse.drinks
+			let sectionIndex = self.sections.firstIndex { $0.sectionType == .latest }
+			guard let sectionIndexUnwrapped = sectionIndex else { return }
+			DispatchQueue.main.async {
+				self.delegate?.reloadCollectionView(for: sectionIndexUnwrapped)
+			}
 		case .failure(let error):
 			print(error.localizedDescription)
 		}
@@ -44,7 +49,12 @@ final class HomePresenter {
 		guard let self = self else { return }
 		switch result {
 		case .success(let drinkResponse):
-			print(drinkResponse)
+			self.randomDrinks = drinkResponse.drinks
+			let sectionIndex = self.sections.firstIndex { $0.sectionType == .random }
+			guard let sectionIndexUnwrapped = sectionIndex else { return }
+			DispatchQueue.main.async {
+				self.delegate?.reloadCollectionView(for: sectionIndexUnwrapped)
+			}
 		case .failure(let error):
 			print(error.localizedDescription)
 		}

@@ -86,4 +86,8 @@ extension HomeViewController: UICollectionViewDataSource {
 	}
 }
 
+extension HomeViewController: HomeViewDelegate {
+	func reloadCollectionView(for section: Int) {
+		collectionView.reloadSections(IndexSet(integer: section))
+	}
 }
