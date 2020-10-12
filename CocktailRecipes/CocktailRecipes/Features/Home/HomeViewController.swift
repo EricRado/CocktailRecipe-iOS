@@ -89,8 +89,13 @@ extension HomeViewController: UICollectionViewDataSource {
 		return presenter.sectionCount
 	}
 
-	func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-		guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.identifier, for: indexPath) as? SectionHeader else { fatalError("Could not deque SectionHeader") }
+	func collectionView(
+		_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String,
+		at indexPath: IndexPath) -> UICollectionReusableView {
+		guard let headerView = collectionView.dequeueReusableSupplementaryView(
+			ofKind: UICollectionView.elementKindSectionHeader,
+			withReuseIdentifier: SectionHeader.identifier,
+			for: indexPath) as? SectionHeader else { fatalError("Could not deque SectionHeader") }
 		headerView.configure(text: presenter.title(for: indexPath.section))
 		return headerView
 	}
