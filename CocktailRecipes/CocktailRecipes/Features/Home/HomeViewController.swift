@@ -35,7 +35,25 @@ final class HomeViewController: UIViewController {
 			collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
 		])
-    }
+	}
+
+	private func makeLayout() -> UICollectionViewLayout {
+		let layout = UICollectionViewCompositionalLayout {
+			(sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+			switch self.presenter.sectionType(for: sectionIndex) {
+			case .random:
+				return self.createFirstSectionLayout()
+			case .latest, .popular:
+				return self.createThirdSectionLayout()
+			}
+		}
+
+		let configuration = UICollectionViewCompositionalLayoutConfiguration()
+		configuration.interSectionSpacing = 20
+		layout.configuration = configuration
+		return layout
+	}
+}
 
 extension HomeViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -83,6 +101,67 @@ extension HomeViewController: UICollectionViewDataSource {
 		guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.identifier, for: indexPath) as? SectionHeader else { fatalError("Could not deque SectionHeader") }
 		headerView.configure(text: presenter.title(for: indexPath.section))
 		return headerView
+	}
+}
+
+//MARK:- Compositional Layout Helpers
+extension HomeViewController {
+	private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
+		let layoutSectionHeaderSize = NSCollectionLayoutSize(
+			widthDimension: .fractionalWidth(1), heightDimension: .absolute(50))
+		return NSCollectionLayoutBoundarySupplementaryItem(
+			layoutSize: layoutSectionHeaderSize,
+			elementKind: UICollectionView.elementKindSectionHeader,
+			alignment: .top)
+	}
+
+	private func createFirstSectionLayout() -> NSCollectionLayoutSection {
+		let itemSize = NSCollectionLayoutSize(
+			widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+		let layoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
+		layoutItem.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
+
+		let groupSize = NSCollectionLayoutSize(
+			widthDimension: .fractionalWidth(0.95), heightDimension: .estimated(250))
+		let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [layoutItem])
+
+		let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
+		layoutSection.orthogonalScrollingBehavior = .groupPagingCentered
+		layoutSection.boundarySupplementaryItems = [createSectionHeader()]
+
+		return layoutSection
+	}
+
+	private func createSecondSectionLayout() -> NSCollectionLayoutSection {
+		let itemSize = NSCollectionLayoutSize(
+			widthDimension: .fractionalWidth(0.45), heightDimension: .fractionalHeight(0.5))
+		let layoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
+		layoutItem.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
+
+		let groupSize = NSCollectionLayoutSize(
+			widthDimension: .fractionalWidth(0.95), heightDimension: .estimated(250))
+		let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: layoutItem, count: 2)
+
+		let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
+		layoutSection.orthogonalScrollingBehavior = .groupPagingCentered
+		layoutSection.boundarySupplementaryItems = [createSectionHeader()]
+
+		return layoutSection
+	}
+
+	private func createThirdSectionLayout() -> NSCollectionLayoutSection {
+		let itemSize = NSCollectionLayoutSize(
+			widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+		let layoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
+
+		let groupSize = NSCollectionLayoutSize(
+			widthDimension: .fractionalWidth(1), heightDimension: .absolute(100))
+
+		let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [layoutItem])
+		let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
+		layoutSection.interGroupSpacing = 15
+		layoutSection.boundarySupplementaryItems = [createSectionHeader()]
+		return layoutSection
 	}
 }
 
