@@ -65,6 +65,7 @@
 		47E38EF624C62DC0002115C0 /* DrinksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinksViewController.swift; sourceTree = "<group>"; };
 		47E38EF824C62DCE002115C0 /* IngredientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsViewController.swift; sourceTree = "<group>"; };
 		47E38EFA24C62DEA002115C0 /* SavedDrinksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDrinksViewController.swift; sourceTree = "<group>"; };
+		9F65AECB2535432E0064A505 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		9FA11ADB24C4A9070044C956 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +90,7 @@
 		47E38EA524C37621002115C0 = {
 			isa = PBXGroup;
 			children = (
+				9F65AECB2535432E0064A505 /* .swiftlint.yml */,
 				47E38EB024C37621002115C0 /* CocktailRecipes */,
 				47E38EC724C37622002115C0 /* CocktailRecipesTests */,
 				47E38EAF24C37621002115C0 /* Products */,
@@ -231,6 +233,7 @@
 				47E38EAA24C37621002115C0 /* Sources */,
 				47E38EAB24C37621002115C0 /* Frameworks */,
 				47E38EAC24C37621002115C0 /* Resources */,
+				9F65AEC8253540670064A505 /* Swift Lint */,
 			);
 			buildRules = (
 			);
@@ -316,6 +319,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9F65AEC8253540670064A505 /* Swift Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Lint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		47E38EAA24C37621002115C0 /* Sources */ = {
