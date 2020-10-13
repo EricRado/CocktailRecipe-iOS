@@ -18,7 +18,7 @@ final class HomePresenter {
 	private lazy var fetchPopularDrinksCompletion: (Result<DrinkResponse, Error>) -> Void = { [weak self] result in
 		guard let self = self else { return }
 		switch result {
-		case.success(let drinkResponse):
+		case .success(let drinkResponse):
 			self.popularDrinks = drinkResponse.drinks
 			let sectionIndex = self.sections.firstIndex { $0.sectionType == .popular }
 			guard let sectionIndexUnwrapped = sectionIndex else { return }
