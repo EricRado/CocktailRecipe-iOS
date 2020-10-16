@@ -96,8 +96,9 @@ extension HomeViewController: UICollectionViewDataSource {
 		guard let headerView = collectionView.dequeueReusableSupplementaryView(
 			ofKind: UICollectionView.elementKindSectionHeader,
 			withReuseIdentifier: SectionHeader.identifier,
-			for: indexPath) as? SectionHeader else { fatalError("Could not deque SectionHeader") }
-		headerView.configure(text: presenter.title(for: indexPath.section))
+			for: indexPath) as? SectionHeader else { fatalError("Could not dequeue SectionHeader") }
+        headerView.configure(text: presenter.title(for: indexPath.section), sectionIndex: indexPath.section)
+        headerView.delegate = self
 		return headerView
 	}
 }
@@ -167,4 +168,13 @@ extension HomeViewController: HomeViewDelegate {
 	func reloadCollectionView(for section: Int) {
 		collectionView.reloadSections(IndexSet(integer: section))
 	}
+}
+
+extension HomeViewController: SectionHeaderDelegate {
+    func didTapShowMoreForSectionHeader(_ sectionHeader: SectionHeader, sectionIndex: Int) {
+        let sectionType = presenter.sectionType(for: sectionIndex)
+        let dataSource = presenter.dataSource(for: sectionType)
+
+        #warning("push to specific section here")
+    }
 }
