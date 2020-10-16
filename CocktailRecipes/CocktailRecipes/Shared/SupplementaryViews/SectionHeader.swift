@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol SectionHeaderDelegate: AnyObject {
+    func didTapShowMoreForSectionHeader(_ sectionHeader: SectionHeader, sectionIndex: Int)
+}
+
 final class SectionHeader: UICollectionReusableView {
 	private let label: UILabel = {
 		let label = UILabel()
@@ -27,6 +31,8 @@ final class SectionHeader: UICollectionReusableView {
     }()
 
     weak var delegate: SectionHeaderDelegate?
+
+    private var sectionIndex = 0
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -52,7 +58,12 @@ final class SectionHeader: UICollectionReusableView {
         ])
 	}
 
-	func configure(text: String) {
+    func configure(text: String, sectionIndex: Int) {
 		label.text = text
+        self.sectionIndex = sectionIndex
 	}
+
+    @objc private func showMore() {
+        delegate?.didTapShowMoreForSectionHeader(self, sectionIndex: sectionIndex)
+    }
 }
