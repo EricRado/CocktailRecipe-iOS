@@ -58,7 +58,8 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		let sectionType = presenter.sectionType(for: section)
-		return presenter.dataSource(for: sectionType).count
+        let counter = presenter.dataSource(for: sectionType).count
+        return counter < 5 ? counter : 5
 	}
 
 	func collectionView(
