@@ -16,7 +16,9 @@ final class HomeViewController: UIViewController {
 		collectionView.backgroundColor = .white
 		collectionView.register(SmallDrinkCell.self, forCellWithReuseIdentifier: SmallDrinkCell.identifier)
 		collectionView.register(LargeDrinkCell.self, forCellWithReuseIdentifier: LargeDrinkCell.identifier)
-		collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.identifier)
+		collectionView.register(SectionHeader.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: SectionHeader.identifier)
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.dataSource = self
 		return collectionView
@@ -37,8 +39,7 @@ final class HomeViewController: UIViewController {
 	}
 
 	private func makeLayout() -> UICollectionViewLayout {
-		let layout = UICollectionViewCompositionalLayout {
-			(sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+		let layout = UICollectionViewCompositionalLayout { (sectionIndex, _) -> NSCollectionLayoutSection? in
 			switch self.presenter.sectionType(for: sectionIndex) {
 			case .random:
 				return self.createFirstSectionLayout()
@@ -101,7 +102,7 @@ extension HomeViewController: UICollectionViewDataSource {
 	}
 }
 
-//MARK:- Compositional Layout Helpers
+// MARK: - Compositional Layout Helpers
 extension HomeViewController {
 	private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
 		let layoutSectionHeaderSize = NSCollectionLayoutSize(
