@@ -16,7 +16,17 @@ final class SectionHeader: UICollectionReusableView {
 		label.textColor = .label
 		label.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize, weight: .bold)
 		return label
-	} ()
+	}()
+
+    private let button: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Show more", for: .normal)
+        button.addTarget(self, action: #selector(showMore), for: .touchUpInside)
+        return button
+    }()
+
+    weak var delegate: SectionHeaderDelegate?
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -29,10 +39,17 @@ final class SectionHeader: UICollectionReusableView {
 
 	private func setupView() {
 		addSubview(label)
+        addSubview(button)
+
 		NSLayoutConstraint.activate([
 			label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
 			label.topAnchor.constraint(equalTo: topAnchor, constant: 8)
 		])
+
+        NSLayoutConstraint.activate([
+            button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            button.bottomAnchor.constraint(equalTo: label.bottomAnchor)
+        ])
 	}
 
 	func configure(text: String) {
