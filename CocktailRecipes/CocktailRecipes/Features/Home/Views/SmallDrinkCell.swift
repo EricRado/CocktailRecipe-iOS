@@ -54,7 +54,7 @@ final class SmallDrinkCell: UICollectionViewCell {
 		NSLayoutConstraint.activate([
 			label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 24),
 			label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-			label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+			label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
 		])
 	}
 

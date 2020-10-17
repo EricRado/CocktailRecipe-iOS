@@ -60,7 +60,7 @@ final class HomePresenter {
 		}
 	}
 
-	// MARK:- Data Sources
+	// MARK: - Data Sources
 	private var randomDrinks: [Drink] = []
 	private var latestDrinks: [Drink] = []
 	private var popularDrinks: [Drink] = []
