@@ -50,7 +50,7 @@ final class HomeViewController: UIViewController {
 		}
 
 		let configuration = UICollectionViewCompositionalLayoutConfiguration()
-		configuration.interSectionSpacing = 20
+		configuration.interSectionSpacing = 8
 		layout.configuration = configuration
 		return layout
 	}
@@ -160,7 +160,6 @@ extension HomeViewController {
 
 		let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [layoutItem])
 		let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-		layoutSection.interGroupSpacing = 15
 		layoutSection.boundarySupplementaryItems = [createSectionHeader()]
 		return layoutSection
 	}
