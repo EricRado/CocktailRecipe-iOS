@@ -11,6 +11,7 @@ import UIKit
 final class HomeViewController: UIViewController {
 
 	private let presenter = HomePresenter(networkManager: NetworkManager())
+    private let numberOfRowsInSection = 5
 	private lazy var collectionView: UICollectionView = {
 		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeLayout())
 		collectionView.backgroundColor = .white
@@ -59,7 +60,7 @@ extension HomeViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		let sectionType = presenter.sectionType(for: section)
         let counter = presenter.dataSource(for: sectionType).count
-        return counter < 5 ? counter : 5
+        return counter < numberOfRowsInSection ? counter : numberOfRowsInSection
 	}
 
 	func collectionView(
