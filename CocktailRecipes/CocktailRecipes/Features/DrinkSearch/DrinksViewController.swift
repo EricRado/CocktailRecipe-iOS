@@ -76,7 +76,13 @@ extension DrinksViewController: UICollectionViewDataSource {
 	}
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return presenter.drinks.count
+		let searchResultState = presenter.searchResultState
+		switch searchResultState {
+		case .notFiltered(let drinks), .filtered(let drinks):
+			return drinks.count
+		case .error:
+			return 0
+		}
 	}
 
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -84,8 +90,16 @@ extension DrinksViewController: UICollectionViewDataSource {
 				withReuseIdentifier: LargeDrinkCell.identifier, for: indexPath) as? LargeDrinkCell else {
 			return UICollectionViewCell()
 		}
-		let drink = presenter.drinks[indexPath.item]
-		cell.configure(image: nil, text: drink.name)
+
+		let searchResultState = presenter.searchResultState
+		switch searchResultState {
+		case .notFiltered(let drinks), .filtered(let drinks):
+			let drink = drinks[indexPath.item]
+			cell.configure(image: nil, text: drink.name)
+		case .error:
+			return UICollectionViewCell()
+		}
+
 		return cell
 	}
 }
@@ -96,6 +110,13 @@ extension DrinksViewController: UISearchResultsUpdating {
 	}
 
 }
+
+extension DrinksViewController: DrinksPresenterDelegate {
+	func reloadCollectionView() {
+		collectionView.reloadData()
+	}
+}
+
 extension DrinksViewController: DebouncerDelegate {
 	func didFireDebouncer(_ debouncer: Debouncer) {
 		guard let searchText = searchController.searchBar.text, !searchText.isEmpty else {
