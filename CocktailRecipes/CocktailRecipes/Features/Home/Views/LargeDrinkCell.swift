@@ -48,7 +48,7 @@ final class LargeDrinkCell: UICollectionViewCell {
 		])
 
 		NSLayoutConstraint.activate([
-			imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+			imageView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
 			imageView.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -16),
 			imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
 			imageView.trailingAnchor.constraint(equalTo: trailingAnchor)
