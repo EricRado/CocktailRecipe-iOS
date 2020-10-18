@@ -8,24 +8,48 @@
 
 import Foundation
 
+enum SearchResultState<T: Decodable> {
+	case notFiltered(drinks: T)
+	case filtered(drinks: T)
+	case error(message: String)
+}
+
 protocol DrinksPresenterDelegate: AnyObject {
-	func reloadCollectionView()
+	func reloadCollectionView(searchResultState: SearchResultState<[Drink]>)
 }
 
 final class DrinksPresenter {
 	weak var delegate: DrinksPresenterDelegate?
 	private let networkManager: NetworkManager
-	private(set) var drinks = [Drink]()
+	private var nonFilteredDrinks: [Drink]?
+
+	private lazy var fetchDrinksFilteredCompletionHandler: (Result<DrinkResponse, Error>) -> Void = { [weak self] result in
+		guard let self = self else { return }
+		switch result {
+		case .success(let drinkResponse):
+			DispatchQueue.main.async {
+				self.delegate?.reloadCollectionView(searchResultState: .filtered(drinks: drinkResponse.drinks))
+			}
+		case .failure(let error):
+			DispatchQueue.main.async {
+				self.delegate?.reloadCollectionView(searchResultState: .error(message: error.localizedDescription))
+			}
+		}
+	}
+	
 	private lazy var fetchDrinksCompletionHandler: (Result<DrinkResponse, Error>) -> Void = { [weak self] result in
 		guard let self = self else { return }
 		switch result {
 		case .success(let drinkResponse):
-			self.drinks = drinkResponse.drinks
+			self.nonFilteredDrinks = drinkResponse.drinks
 			DispatchQueue.main.async {
-				self.delegate?.reloadCollectionView()
+				self.delegate?.reloadCollectionView(
+					searchResultState: .notFiltered(drinks: self.nonFilteredDrinks ?? []))
 			}
 		case .failure(let error):
-			print(error.localizedDescription)
+			DispatchQueue.main.async {
+				self.delegate?.reloadCollectionView(searchResultState: .error(message: error.localizedDescription))
+			}
 		}
 	}
 
@@ -34,7 +58,16 @@ final class DrinksPresenter {
 	}
 
 	func fetchDrinks(with name: String) {
+		guard !name.isEmpty else {
+			if let nonFilteredDrinks = nonFilteredDrinks {
+				delegate?.reloadCollectionView(searchResultState: .notFiltered(drinks: nonFilteredDrinks))
+			} else {
+				networkManager.request(CocktailEndpoint.searchWithName(name), completion: fetchDrinksCompletionHandler)
+			}
+			return
+		}
+
 		networkManager.request(
-			CocktailEndpoint.searchWithName(name), completion: fetchDrinksCompletionHandler)
+			CocktailEndpoint.searchWithName(name), completion: fetchDrinksFilteredCompletionHandler)
 	}
 }
