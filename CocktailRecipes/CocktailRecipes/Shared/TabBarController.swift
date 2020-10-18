@@ -21,6 +21,7 @@ final class TabBarController: UITabBarController {
 		let drinksViewController = DrinksViewController()
 		drinksViewController.tabBarItem.image = UIImage(named: "cocktail")
 		drinksViewController.tabBarItem.title = ""
+		let drinksNavigationController = UINavigationController(rootViewController: drinksViewController)
 
 		let ingredientsViewController = IngredientsViewController()
 		ingredientsViewController.tabBarItem.image = UIImage(named: "ingredient")
@@ -32,7 +33,7 @@ final class TabBarController: UITabBarController {
 
 		setViewControllers([
 			homeViewController,
-			drinksViewController,
+			drinksNavigationController,
 			ingredientsViewController,
 			savedDrinksViewController
 			], animated: true)
