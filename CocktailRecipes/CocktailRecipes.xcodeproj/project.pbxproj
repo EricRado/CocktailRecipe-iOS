@@ -14,6 +14,7 @@
 		471C095524C7F40700E573EB /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C095424C7F40700E573EB /* SectionHeader.swift */; };
 		4770304F24CA021B00DD6D10 /* DrinkSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770304E24CA021B00DD6D10 /* DrinkSection.swift */; };
 		479792EF2537F4180094991A /* DrinksPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479792EE2537F4180094991A /* DrinksPresenter.swift */; };
+		4798EAE5253BE213003C8DD1 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4798EAE4253BE213003C8DD1 /* Debouncer.swift */; };
 		47E38EB224C37621002115C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EB124C37621002115C0 /* AppDelegate.swift */; };
 		47E38EB424C37621002115C0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38EB324C37621002115C0 /* SceneDelegate.swift */; };
 		47E38EBB24C37622002115C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47E38EBA24C37622002115C0 /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 		471C095424C7F40700E573EB /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		4770304E24CA021B00DD6D10 /* DrinkSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkSection.swift; sourceTree = "<group>"; };
 		479792EE2537F4180094991A /* DrinksPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinksPresenter.swift; sourceTree = "<group>"; };
+		4798EAE4253BE213003C8DD1 /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		47E38EAE24C37621002115C0 /* CocktailRecipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocktailRecipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47E38EB124C37621002115C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47E38EB324C37621002115C0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +134,14 @@
 				4770304E24CA021B00DD6D10 /* DrinkSection.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4798EAE3253BE201003C8DD1 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				4798EAE4253BE213003C8DD1 /* Debouncer.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		47E38EA524C37621002115C0 = {
@@ -270,6 +280,7 @@
 		47E38EFC24C62E03002115C0 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				4798EAE3253BE201003C8DD1 /* Utilities */,
 				471C095324C7F3D900E573EB /* SupplementaryViews */,
 				47E38EED24C60D03002115C0 /* TabBarController.swift */,
 			);
@@ -416,6 +427,7 @@
 				47E38EEC24C410E3002115C0 /* Ingredient.swift in Sources */,
 				47E38EB224C37621002115C0 /* AppDelegate.swift in Sources */,
 				47E38EE524C3EF06002115C0 /* URLParameterEncoder.swift in Sources */,
+				4798EAE5253BE213003C8DD1 /* Debouncer.swift in Sources */,
 				471C095524C7F40700E573EB /* SectionHeader.swift in Sources */,
 				47E38EF524C62D7D002115C0 /* HomeViewController.swift in Sources */,
 				479792EF2537F4180094991A /* DrinksPresenter.swift in Sources */,
