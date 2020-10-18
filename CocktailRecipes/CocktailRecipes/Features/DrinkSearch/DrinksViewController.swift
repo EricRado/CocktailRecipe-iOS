@@ -14,7 +14,6 @@ final class DrinksViewController: UIViewController {
 	private lazy var searchController: UISearchController = {
 		let searchController = UISearchController(searchResultsController: nil)
 		searchController.searchResultsUpdater = self
-		searchController.searchBar.delegate = self
 		searchController.hidesNavigationBarDuringPresentation = false
 		searchController.obscuresBackgroundDuringPresentation = false
 		return searchController
@@ -24,10 +23,14 @@ final class DrinksViewController: UIViewController {
 		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: generateLayout())
 		collectionView.backgroundColor = .white
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
+		collectionView.keyboardDismissMode = .onDrag
 		collectionView.register(LargeDrinkCell.self, forCellWithReuseIdentifier: LargeDrinkCell.identifier)
 		collectionView.dataSource = self
 		return collectionView
 	}()
+
+	private let debouncer = Debouncer(delay: 0.3)
+	private var searchTextDisplayed = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +47,7 @@ final class DrinksViewController: UIViewController {
 			collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 		])
 		presenter.delegate = self
+		debouncer.delegate = self
 		presenter.fetchDrinks(with: "")
     }
 
@@ -70,7 +74,7 @@ extension DrinksViewController: UICollectionViewDataSource {
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
 		return 1
 	}
-	
+
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return presenter.drinks.count
 	}
@@ -85,4 +89,20 @@ extension DrinksViewController: UICollectionViewDataSource {
 		return cell
 	}
 }
+
+extension DrinksViewController: UISearchResultsUpdating {
+	func updateSearchResults(for searchController: UISearchController) {
+		debouncer.call()
+	}
+
+}
+extension DrinksViewController: DebouncerDelegate {
+	func didFireDebouncer(_ debouncer: Debouncer) {
+		guard let searchText = searchController.searchBar.text, !searchText.isEmpty else {
+			return
+		}
+		guard searchText != searchTextDisplayed else { return }
+		searchTextDisplayed = searchText
+		presenter.fetchDrinks(with: searchText)
+	}
 }
