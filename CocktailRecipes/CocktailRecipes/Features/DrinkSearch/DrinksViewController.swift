@@ -16,6 +16,7 @@ final class DrinksViewController: UIViewController {
 		searchController.searchResultsUpdater = self
 		searchController.hidesNavigationBarDuringPresentation = false
 		searchController.obscuresBackgroundDuringPresentation = false
+		searchController.searchBar.returnKeyType = .default
 		return searchController
 	}()
 
@@ -119,10 +120,7 @@ extension DrinksViewController: DrinksPresenterDelegate {
 
 extension DrinksViewController: DebouncerDelegate {
 	func didFireDebouncer(_ debouncer: Debouncer) {
-		guard let searchText = searchController.searchBar.text, !searchText.isEmpty else {
-			return
-		}
-		guard searchText != searchTextDisplayed else { return }
+		guard let searchText = searchController.searchBar.text, searchText != searchTextDisplayed else { return }
 		searchTextDisplayed = searchText
 		presenter.fetchDrinks(with: searchText)
 	}
