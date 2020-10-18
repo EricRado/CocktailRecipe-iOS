@@ -46,15 +46,15 @@ final class SmallDrinkCell: UICollectionViewCell {
 
 		NSLayoutConstraint.activate([
 			imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-			imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-			imageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25),
-			imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
+			imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+			imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
 		])
 
 		NSLayoutConstraint.activate([
 			label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 24),
 			label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-			label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+			label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
 		])
 	}
 

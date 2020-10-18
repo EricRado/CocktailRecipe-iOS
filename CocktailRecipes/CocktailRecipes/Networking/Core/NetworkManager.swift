@@ -17,7 +17,7 @@ enum NetworkError: String, Error {
 final class NetworkManager {
 	private let apiKey: String
     private let session: URLSession
-    
+
     init(session: URLSession = URLSession.shared) {
 		guard let path = Bundle.main.path(forResource: "APIKey", ofType: "plist"),
             let dict = NSDictionary(contentsOfFile: path) else {
@@ -25,14 +25,14 @@ final class NetworkManager {
         }
         let apiKey = dict["API_KEY"] as? String
         self.apiKey = apiKey ?? "1"
-        
+
         self.session = session
     }
 
 	func request<T: Decodable>(_ endpoint: EndpointConstructable, completion: @escaping (Result<T, Error>) -> Void) {
 		do {
 			let request = try buildRequest(from: endpoint)
-			session.dataTask(with: request) { (data, response, error) in
+			session.dataTask(with: request) { (data, _, error) in
                 if let error = error {
                     completion(.failure(error))
 				} else if let data = data {

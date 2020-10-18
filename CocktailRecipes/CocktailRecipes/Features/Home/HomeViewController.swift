@@ -11,12 +11,15 @@ import UIKit
 final class HomeViewController: UIViewController {
 
 	private let presenter = HomePresenter(networkManager: NetworkManager())
+    private let numberOfRowsInSection = 5
 	private lazy var collectionView: UICollectionView = {
 		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeLayout())
 		collectionView.backgroundColor = .white
 		collectionView.register(SmallDrinkCell.self, forCellWithReuseIdentifier: SmallDrinkCell.identifier)
 		collectionView.register(LargeDrinkCell.self, forCellWithReuseIdentifier: LargeDrinkCell.identifier)
-		collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.identifier)
+		collectionView.register(SectionHeader.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: SectionHeader.identifier)
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.dataSource = self
 		return collectionView
@@ -37,8 +40,7 @@ final class HomeViewController: UIViewController {
 	}
 
 	private func makeLayout() -> UICollectionViewLayout {
-		let layout = UICollectionViewCompositionalLayout {
-			(sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+		let layout = UICollectionViewCompositionalLayout { (sectionIndex, _) -> NSCollectionLayoutSection? in
 			switch self.presenter.sectionType(for: sectionIndex) {
 			case .random:
 				return self.createFirstSectionLayout()
@@ -48,7 +50,7 @@ final class HomeViewController: UIViewController {
 		}
 
 		let configuration = UICollectionViewCompositionalLayoutConfiguration()
-		configuration.interSectionSpacing = 20
+		configuration.interSectionSpacing = 8
 		layout.configuration = configuration
 		return layout
 	}
@@ -57,7 +59,8 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		let sectionType = presenter.sectionType(for: section)
-		return presenter.dataSource(for: sectionType).count
+        let counter = presenter.dataSource(for: sectionType).count
+        return counter < numberOfRowsInSection ? counter : numberOfRowsInSection
 	}
 
 	func collectionView(
@@ -95,13 +98,14 @@ extension HomeViewController: UICollectionViewDataSource {
 		guard let headerView = collectionView.dequeueReusableSupplementaryView(
 			ofKind: UICollectionView.elementKindSectionHeader,
 			withReuseIdentifier: SectionHeader.identifier,
-			for: indexPath) as? SectionHeader else { fatalError("Could not deque SectionHeader") }
-		headerView.configure(text: presenter.title(for: indexPath.section))
+			for: indexPath) as? SectionHeader else { fatalError("Could not dequeue SectionHeader") }
+        headerView.configure(text: presenter.title(for: indexPath.section), sectionIndex: indexPath.section)
+        headerView.delegate = self
 		return headerView
 	}
 }
 
-//MARK:- Compositional Layout Helpers
+// MARK: - Compositional Layout Helpers
 extension HomeViewController {
 	private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
 		let layoutSectionHeaderSize = NSCollectionLayoutSize(
@@ -156,7 +160,6 @@ extension HomeViewController {
 
 		let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [layoutItem])
 		let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-		layoutSection.interGroupSpacing = 15
 		layoutSection.boundarySupplementaryItems = [createSectionHeader()]
 		return layoutSection
 	}
@@ -166,4 +169,13 @@ extension HomeViewController: HomeViewDelegate {
 	func reloadCollectionView(for section: Int) {
 		collectionView.reloadSections(IndexSet(integer: section))
 	}
+}
+
+extension HomeViewController: SectionHeaderDelegate {
+    func didTapShowMoreForSectionHeader(_ sectionHeader: SectionHeader, sectionIndex: Int) {
+        let sectionType = presenter.sectionType(for: sectionIndex)
+        let dataSource = presenter.dataSource(for: sectionType)
+
+        #warning("push to specific section here")
+    }
 }
