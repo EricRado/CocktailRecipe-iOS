@@ -39,6 +39,18 @@ final class HomeViewController: UIViewController {
 		])
 	}
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.navigationBar.isHidden = true
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        navigationController?.navigationBar.isHidden = false
+    }
+
 	private func makeLayout() -> UICollectionViewLayout {
 		let layout = UICollectionViewCompositionalLayout { (sectionIndex, _) -> NSCollectionLayoutSection? in
 			switch self.presenter.sectionType(for: sectionIndex) {
@@ -177,6 +189,10 @@ extension HomeViewController: SectionHeaderDelegate {
         let sectionType = presenter.sectionType(for: sectionIndex)
         let dataSource = presenter.dataSource(for: sectionType)
 
-        #warning("push to specific section here")
+        let drinkChartPresenter = DrinkChartPresenter(drinks: dataSource)
+        let drinkChartCollectionViewController = DrinkChartCollectionViewController(presenter: drinkChartPresenter)
+        drinkChartCollectionViewController.title = sectionType.title
+
+        navigationController?.pushViewController(drinkChartCollectionViewController, animated: true)
     }
 }
