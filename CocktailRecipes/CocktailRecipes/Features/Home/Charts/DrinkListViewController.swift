@@ -1,5 +1,5 @@
 //
-//  DrinkChartCollectionViewController.swift
+//  DrinkListViewController.swift
 //  CocktailRecipes
 //
 //  Created by Jaison Vieira on 10/17/20.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-class DrinkChartCollectionViewController: UICollectionViewController {
+class DrinkListViewController: UICollectionViewController {
 
-    private let presenter: DrinkChartPresenter
+    private let presenter: DrinkListPresenter
 
-    init(presenter: DrinkChartPresenter) {
+    init(presenter: DrinkListPresenter) {
         self.presenter = presenter
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
@@ -23,9 +23,9 @@ class DrinkChartCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         collectionView.backgroundColor = .white
-        collectionView.register(DrinkChartCell.self, forCellWithReuseIdentifier: DrinkChartCell.identifier)
+        collectionView.register(SmallDrinkCell.self, forCellWithReuseIdentifier: SmallDrinkCell.identifier)
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -36,18 +36,18 @@ class DrinkChartCollectionViewController: UICollectionViewController {
         _ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: DrinkChartCell.identifier, for: indexPath) as? DrinkChartCell else {
+                withReuseIdentifier: SmallDrinkCell.identifier, for: indexPath) as? SmallDrinkCell else {
             return UICollectionViewCell()
         }
 
         let drink = presenter.itemForRow(indexPath.row)
-        cell.configure(image: nil, rank: indexPath.row + 1, text: drink.name)
+        cell.configure(image: nil, text: drink.name, rank: indexPath.row + 1)
 
         return cell
     }
 }
 
-extension DrinkChartCollectionViewController: UICollectionViewDelegateFlowLayout {
+extension DrinkListViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

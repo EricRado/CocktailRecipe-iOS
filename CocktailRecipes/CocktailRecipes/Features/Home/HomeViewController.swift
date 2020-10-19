@@ -94,7 +94,7 @@ extension HomeViewController: UICollectionViewDataSource {
 				withReuseIdentifier: SmallDrinkCell.identifier, for: indexPath) as? SmallDrinkCell else {
 				return UICollectionViewCell()
 			}
-			cell.configure(image: nil, text: drink.name)
+			cell.configure(image: nil, text: drink.name, rank: nil)
 			return cell
 		}
 
@@ -188,8 +188,8 @@ extension HomeViewController: SectionHeaderDelegate {
         let sectionType = presenter.sectionType(for: sectionIndex)
         let dataSource = presenter.dataSource(for: sectionType)
 
-        let drinkChartPresenter = DrinkChartPresenter(drinks: dataSource)
-        let drinkChartCollectionViewController = DrinkChartCollectionViewController(presenter: drinkChartPresenter)
+        let drinkChartPresenter = DrinkListPresenter(drinks: dataSource)
+        let drinkChartCollectionViewController = DrinkListViewController(presenter: drinkChartPresenter)
         drinkChartCollectionViewController.title = sectionType.title
 
         navigationController?.pushViewController(drinkChartCollectionViewController, animated: true)

@@ -1,5 +1,5 @@
 //
-//  DrinkChartPresenter.swift
+//  DrinkListPresenter.swift
 //  CocktailRecipes
 //
 //  Created by Jaison Vieira on 10/17/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct DrinkChartPresenter {
+struct DrinkListPresenter {
     private var drinks: [Drink]
 
     init(drinks: [Drink]) {
