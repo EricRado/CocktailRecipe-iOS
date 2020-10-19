@@ -14,9 +14,9 @@ final class TabBarController: UITabBarController {
         super.viewDidLoad()
 		view.backgroundColor = .white
 
-		let homeViewController = HomeViewController()
-		homeViewController.tabBarItem.image = UIImage(named: "home")
-		homeViewController.tabBarItem.title = ""
+		let homeNavigationViewController = UINavigationController(rootViewController: HomeViewController())
+        homeNavigationViewController.tabBarItem.image = UIImage(named: "home")
+        homeNavigationViewController.tabBarItem.title = ""
 
 		let drinksViewController = DrinksViewController()
 		drinksViewController.tabBarItem.image = UIImage(named: "cocktail")
@@ -31,7 +31,7 @@ final class TabBarController: UITabBarController {
 		savedDrinksViewController.tabBarItem.title = ""
 
 		setViewControllers([
-			homeViewController,
+            homeNavigationViewController,
 			drinksViewController,
 			ingredientsViewController,
 			savedDrinksViewController
