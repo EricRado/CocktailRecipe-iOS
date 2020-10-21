@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DrinkListPresenter {
+final class DrinkListPresenter {
     private var drinks: [Drink]
 
     init(drinks: [Drink]) {
