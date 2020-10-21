@@ -79,9 +79,7 @@ final class SmallDrinkCell: UICollectionViewCell {
 
         if let rank = rank {
             rankLabel.text = "\(rank)"
-            rankLabel.isHidden = false
-        } else {
-            rankLabel.isHidden = true
         }
+        rankLabel.isHidden = rank == nil
 	}
 }

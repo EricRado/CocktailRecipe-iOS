@@ -8,13 +8,14 @@
 
 import UIKit
 
-class DrinkListViewController: UICollectionViewController {
+final class DrinkListViewController: UICollectionViewController {
 
     private let presenter: DrinkListPresenter
 
-    init(presenter: DrinkListPresenter) {
+    init(presenter: DrinkListPresenter, title: String) {
         self.presenter = presenter
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
+        self.title = title
     }
 
     required init?(coder: NSCoder) {

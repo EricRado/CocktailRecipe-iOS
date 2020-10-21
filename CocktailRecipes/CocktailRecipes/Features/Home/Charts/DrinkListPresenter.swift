@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct DrinkListPresenter {
+class DrinkListPresenter {
     private var drinks: [Drink]
 
     init(drinks: [Drink]) {

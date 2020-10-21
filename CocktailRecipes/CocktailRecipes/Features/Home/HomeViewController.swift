@@ -189,8 +189,8 @@ extension HomeViewController: SectionHeaderDelegate {
         let dataSource = presenter.dataSource(for: sectionType)
 
         let drinkChartPresenter = DrinkListPresenter(drinks: dataSource)
-        let drinkChartCollectionViewController = DrinkListViewController(presenter: drinkChartPresenter)
-        drinkChartCollectionViewController.title = sectionType.title
+        let drinkChartCollectionViewController = DrinkListViewController(presenter: drinkChartPresenter,
+                                                                         title: sectionType.title)
 
         navigationController?.pushViewController(drinkChartCollectionViewController, animated: true)
     }
