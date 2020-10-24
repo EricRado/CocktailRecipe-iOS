@@ -20,10 +20,9 @@ final class HomePresenter {
 		switch result {
 		case .success(let drinkResponse):
 			self.popularDrinks = drinkResponse.drinks
-			let sectionIndex = self.sections.firstIndex { $0.sectionType == .popular }
-			guard let sectionIndexUnwrapped = sectionIndex else { return }
+            let sectionIndex = HomeSection.popular.rawValue
 			DispatchQueue.main.async {
-				self.delegate?.reloadCollectionView(for: sectionIndexUnwrapped)
+				self.delegate?.reloadCollectionView(for: sectionIndex)
 			}
 		case .failure(let error):
 			print(error.localizedDescription)
@@ -35,10 +34,9 @@ final class HomePresenter {
 		switch result {
 		case .success(let drinkResponse):
 			self.latestDrinks = drinkResponse.drinks
-			let sectionIndex = self.sections.firstIndex { $0.sectionType == .latest }
-			guard let sectionIndexUnwrapped = sectionIndex else { return }
+            let sectionIndex = HomeSection.latest.rawValue
 			DispatchQueue.main.async {
-				self.delegate?.reloadCollectionView(for: sectionIndexUnwrapped)
+				self.delegate?.reloadCollectionView(for: sectionIndex)
 			}
 		case .failure(let error):
 			print(error.localizedDescription)
@@ -50,10 +48,9 @@ final class HomePresenter {
 		switch result {
 		case .success(let drinkResponse):
 			self.randomDrinks = drinkResponse.drinks
-			let sectionIndex = self.sections.firstIndex { $0.sectionType == .random }
-			guard let sectionIndexUnwrapped = sectionIndex else { return }
+            let sectionIndex = HomeSection.random.rawValue
 			DispatchQueue.main.async {
-				self.delegate?.reloadCollectionView(for: sectionIndexUnwrapped)
+				self.delegate?.reloadCollectionView(for: sectionIndex)
 			}
 		case .failure(let error):
 			print(error.localizedDescription)
@@ -65,16 +62,8 @@ final class HomePresenter {
 	private var latestDrinks: [Drink] = []
 	private var popularDrinks: [Drink] = []
 
-	private lazy var sections: [DrinkSection] = {
-		return [
-			DrinkSection(title: HomeSectionType.random.title, sectionType: .random),
-			DrinkSection(title: HomeSectionType.latest.title, sectionType: .latest),
-			DrinkSection(title: HomeSectionType.popular.title, sectionType: .popular)
-		]
-	}()
-
 	var sectionCount: Int {
-		return sections.count
+        return HomeSection.allCases.count
 	}
 
 	init(networkManager: NetworkManager) {
@@ -96,15 +85,15 @@ final class HomePresenter {
 		networkManager.request(CocktailEndpoint.random, completion: fetchRandomDrinksCompletion)
 	}
 
-	func sectionType(for sectionIndex: Int) -> HomeSectionType {
-		return sections[sectionIndex].sectionType
+	func sectionType(for sectionIndex: Int) -> HomeSection {
+		return HomeSection.allCases[sectionIndex]
 	}
 
 	func title(for sectionIndex: Int) -> String {
-		return sections[sectionIndex].title
+        return HomeSection.allCases[sectionIndex].title
 	}
 
-	func dataSource(for sectionType: HomeSectionType) -> [Drink] {
+	func dataSource(for sectionType: HomeSection) -> [Drink] {
 		switch sectionType {
 		case .random:
 			return randomDrinks
