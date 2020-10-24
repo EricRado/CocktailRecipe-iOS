@@ -14,7 +14,9 @@ final class TabBarController: UITabBarController {
         super.viewDidLoad()
 		view.backgroundColor = .white
 
-		let homeNavigationViewController = UINavigationController(rootViewController: HomeViewController())
+        let homePresenter = HomePresenter(networkManager: NetworkManager())
+        let homeViewController = HomeViewController(presenter: homePresenter)
+		let homeNavigationViewController = UINavigationController(rootViewController: homeViewController)
         homeNavigationViewController.tabBarItem.image = UIImage(named: "home")
         homeNavigationViewController.tabBarItem.title = ""
 
