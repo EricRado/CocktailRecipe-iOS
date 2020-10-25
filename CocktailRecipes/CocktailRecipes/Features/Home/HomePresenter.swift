@@ -85,14 +85,6 @@ final class HomePresenter {
 		networkManager.request(CocktailEndpoint.random, completion: fetchRandomDrinksCompletion)
 	}
 
-	func sectionType(for sectionIndex: Int) -> HomeSection {
-		return HomeSection.allCases[sectionIndex]
-	}
-
-	func title(for sectionIndex: Int) -> String {
-        return HomeSection.allCases[sectionIndex].title
-	}
-
 	func dataSource(for sectionType: HomeSection) -> [Drink] {
 		switch sectionType {
 		case .random:

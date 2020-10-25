@@ -62,7 +62,7 @@ final class HomeViewController: UIViewController {
 
 	private func makeLayout() -> UICollectionViewLayout {
 		let layout = UICollectionViewCompositionalLayout { (sectionIndex, _) -> NSCollectionLayoutSection? in
-			switch self.presenter.sectionType(for: sectionIndex) {
+			switch HomeSection.allCases[sectionIndex] {
 			case .random:
 				return self.createFirstSectionLayout()
 			case .latest, .popular:
@@ -79,14 +79,14 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		let sectionType = presenter.sectionType(for: section)
+		let sectionType = HomeSection.allCases[section]
         let counter = presenter.dataSource(for: sectionType).count
         return counter < numberOfRowsInSection ? counter : numberOfRowsInSection
 	}
 
 	func collectionView(
 		_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let sectionType = presenter.sectionType(for: indexPath.section)
+		let sectionType = HomeSection.allCases[indexPath.section]
 		let dataSource = presenter.dataSource(for: sectionType)
 		let drink = dataSource[indexPath.row]
 
@@ -120,7 +120,7 @@ extension HomeViewController: UICollectionViewDataSource {
 			ofKind: UICollectionView.elementKindSectionHeader,
 			withReuseIdentifier: SectionHeader.identifier,
 			for: indexPath) as? SectionHeader else { fatalError("Could not dequeue SectionHeader") }
-        headerView.configure(text: presenter.title(for: indexPath.section), sectionIndex: indexPath.section)
+        headerView.configure(text: HomeSection.allCases[indexPath.section].title, sectionIndex: indexPath.section)
         headerView.delegate = self
 		return headerView
 	}
@@ -194,7 +194,7 @@ extension HomeViewController: HomeViewDelegate {
 
 extension HomeViewController: SectionHeaderDelegate {
     func didTapShowMoreForSectionHeader(_ sectionHeader: SectionHeader, sectionIndex: Int) {
-        let sectionType = presenter.sectionType(for: sectionIndex)
+        let sectionType = HomeSection.allCases[sectionIndex]
         let dataSource = presenter.dataSource(for: sectionType)
 
         let drinkListPresenter = DrinkListPresenter(drinks: dataSource)
