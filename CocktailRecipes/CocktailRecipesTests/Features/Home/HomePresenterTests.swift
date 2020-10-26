@@ -12,39 +12,39 @@ import XCTest
 class HomePresenterTests: XCTestCase {
 
     func testDataSourceSuccessFetch() {
-        let sut = makeSUT()
+        let homePresenter = constructHomePresenter()
 
-        XCTAssertGreaterThan(sut.dataSource(for: .random).count, 0)
-        XCTAssertGreaterThan(sut.dataSource(for: .latest).count, 0)
-        XCTAssertGreaterThan(sut.dataSource(for: .popular).count, 0)
+        XCTAssertGreaterThan(homePresenter.dataSource(for: .random).count, 0)
+        XCTAssertGreaterThan(homePresenter.dataSource(for: .latest).count, 0)
+        XCTAssertGreaterThan(homePresenter.dataSource(for: .popular).count, 0)
     }
 
     func testDataSourceFailFetch() {
-        let sut = makeFailingSUT()
+        let homePresenter = constructFailingHomePresenter()
 
-        XCTAssertEqual(sut.dataSource(for: .random).count, 0)
-        XCTAssertEqual(sut.dataSource(for: .latest).count, 0)
-        XCTAssertEqual(sut.dataSource(for: .popular).count, 0)
+        XCTAssertEqual(homePresenter.dataSource(for: .random).count, 0)
+        XCTAssertEqual(homePresenter.dataSource(for: .latest).count, 0)
+        XCTAssertEqual(homePresenter.dataSource(for: .popular).count, 0)
     }
 
-    private func makeSUT() -> HomePresenter {
-        return HomePresenter(networkManager: makeNetworkManager())
+    private func constructHomePresenter() -> HomePresenter {
+        return HomePresenter(networkManager: constructNetworkManager())
     }
 
-    private func makeFailingSUT() -> HomePresenter {
+    private func constructFailingHomePresenter() -> HomePresenter {
         let session = MockSession(response: (Data(), URLResponse: nil, error: nil))
         return HomePresenter(networkManager: NetworkManager(session: session))
     }
 
-    private func makeNetworkManager() -> NetworkManager {
+    private func constructNetworkManager() -> NetworkManager {
 
-        let data = makeDrinkArrayData()
+        let data = contstructDrinkData()
 
         let session = MockSession(response: (data, URLResponse: nil, error: nil))
         return NetworkManager(session: session)
     }
 
-    private func makeDrinkArrayData() -> Data {
+    private func contstructDrinkData() -> Data {
         let bundle = Bundle(for: type(of: self))
         guard let url = bundle.url(forResource: "drinks", withExtension: "json"),
               let data = try? Data(contentsOf: url) else {
