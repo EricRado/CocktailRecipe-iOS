@@ -1,5 +1,5 @@
 //
-//  DrinkSection.swift
+//  HomeSection.swift
 //  CocktailRecipes
 //
 //  Created by Eric Rado on 7/23/20.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-enum HomeSectionType {
-	case random
+enum HomeSection: Int, CaseIterable {
+	case random = 0
 	case latest
 	case popular
 
@@ -24,9 +24,4 @@ enum HomeSectionType {
 		}
 	}
 
-}
-
-struct DrinkSection {
-	let title: String
-	let sectionType: HomeSectionType
 }
