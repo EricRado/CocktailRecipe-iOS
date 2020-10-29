@@ -328,18 +328,10 @@
 		9F8637F5253B8E3A004FA69B /* List */ = {
 			isa = PBXGroup;
 			children = (
-				9F8637FC253B90BC004FA69B /* Views */,
 				9F8637F1253B8D6D004FA69B /* DrinkListViewController.swift */,
 				9F8637F8253B8ECE004FA69B /* DrinkListPresenter.swift */,
 			);
 			path = List;
-			sourceTree = "<group>";
-		};
-		9F8637FC253B90BC004FA69B /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
