@@ -8,26 +8,14 @@
 
 import UIKit
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: UICollectionViewController {
 
     private let presenter: HomePresenter
     private let numberOfRowsInSection = 5
-	private lazy var collectionView: UICollectionView = {
-		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeLayout())
-		collectionView.backgroundColor = .white
-		collectionView.register(SmallDrinkCell.self, forCellWithReuseIdentifier: SmallDrinkCell.identifier)
-		collectionView.register(LargeDrinkCell.self, forCellWithReuseIdentifier: LargeDrinkCell.identifier)
-		collectionView.register(SectionHeader.self,
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: SectionHeader.identifier)
-		collectionView.translatesAutoresizingMaskIntoConstraints = false
-		collectionView.dataSource = self
-		return collectionView
-	}()
 
     init(presenter: HomePresenter) {
         self.presenter = presenter
-        super.init(nibName: nil, bundle: nil)
+        super.init(collectionViewLayout: HomeViewController.makeLayout())
     }
 
     required init?(coder: NSCoder) {
@@ -38,14 +26,14 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
 		view.backgroundColor = .white
 
+        collectionView.backgroundColor = .white
+        collectionView.register(SmallDrinkCell.self, forCellWithReuseIdentifier: SmallDrinkCell.identifier)
+        collectionView.register(LargeDrinkCell.self, forCellWithReuseIdentifier: LargeDrinkCell.identifier)
+        collectionView.register(SectionHeader.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: SectionHeader.identifier)
+
 		presenter.delegate = self
-		view.addSubview(collectionView)
-		NSLayoutConstraint.activate([
-			collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-			collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-			collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-			collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-		])
 	}
 
     override func viewWillAppear(_ animated: Bool) {
@@ -60,13 +48,13 @@ final class HomeViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
     }
 
-	private func makeLayout() -> UICollectionViewLayout {
+	private static func makeLayout() -> UICollectionViewLayout {
 		let layout = UICollectionViewCompositionalLayout { (sectionIndex, _) -> NSCollectionLayoutSection? in
 			switch HomeSection.allCases[sectionIndex] {
 			case .random:
-				return self.createFirstSectionLayout()
+				return HomeViewController.createFirstSectionLayout()
 			case .latest, .popular:
-				return self.createThirdSectionLayout()
+				return HomeViewController.createThirdSectionLayout()
 			}
 		}
 
@@ -77,14 +65,14 @@ final class HomeViewController: UIViewController {
 	}
 }
 
-extension HomeViewController: UICollectionViewDataSource {
-	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension HomeViewController {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		let sectionType = HomeSection.allCases[section]
         let counter = presenter.dataSource(for: sectionType).count
         return counter < numberOfRowsInSection ? counter : numberOfRowsInSection
 	}
 
-	func collectionView(
+    override func collectionView(
 		_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let sectionType = HomeSection.allCases[indexPath.section]
 		let dataSource = presenter.dataSource(for: sectionType)
@@ -109,11 +97,11 @@ extension HomeViewController: UICollectionViewDataSource {
 
 	}
 
-	func numberOfSections(in collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
 		return presenter.sectionCount
 	}
 
-	func collectionView(
+    override func collectionView(
 		_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String,
 		at indexPath: IndexPath) -> UICollectionReusableView {
 		guard let headerView = collectionView.dequeueReusableSupplementaryView(
@@ -128,7 +116,7 @@ extension HomeViewController: UICollectionViewDataSource {
 
 // MARK: - Compositional Layout Helpers
 extension HomeViewController {
-	private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
+	private static func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
 		let layoutSectionHeaderSize = NSCollectionLayoutSize(
 			widthDimension: .fractionalWidth(1), heightDimension: .absolute(50))
 		return NSCollectionLayoutBoundarySupplementaryItem(
@@ -137,7 +125,7 @@ extension HomeViewController {
 			alignment: .top)
 	}
 
-	private func createFirstSectionLayout() -> NSCollectionLayoutSection {
+	private static func createFirstSectionLayout() -> NSCollectionLayoutSection {
 		let itemSize = NSCollectionLayoutSize(
 			widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
 		let layoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -154,7 +142,7 @@ extension HomeViewController {
 		return layoutSection
 	}
 
-	private func createSecondSectionLayout() -> NSCollectionLayoutSection {
+	private static func createSecondSectionLayout() -> NSCollectionLayoutSection {
 		let itemSize = NSCollectionLayoutSize(
 			widthDimension: .fractionalWidth(0.45), heightDimension: .fractionalHeight(0.5))
 		let layoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -171,7 +159,7 @@ extension HomeViewController {
 		return layoutSection
 	}
 
-	private func createThirdSectionLayout() -> NSCollectionLayoutSection {
+	private static func createThirdSectionLayout() -> NSCollectionLayoutSection {
 		let itemSize = NSCollectionLayoutSize(
 			widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
 		let layoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
