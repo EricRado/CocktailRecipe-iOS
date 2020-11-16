@@ -11,7 +11,6 @@ import UIKit
 final class LargeDrinkCell: UICollectionViewCell {
 	private let imageView: UIImageView = {
 		let imageView = UIImageView()
-		imageView.backgroundColor = UIColor.gray
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		imageView.contentMode = .scaleAspectFit
 		return imageView
