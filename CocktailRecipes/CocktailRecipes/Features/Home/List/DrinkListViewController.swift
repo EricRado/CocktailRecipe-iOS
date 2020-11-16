@@ -42,7 +42,7 @@ final class DrinkListViewController: UICollectionViewController {
         }
 
         let drink = presenter.itemForRow(indexPath.row)
-        cell.configure(image: nil, text: drink.name, rank: indexPath.row + 1)
+        cell.configure(imageURL: drink.thumbURL, text: drink.name, rank: indexPath.row + 1)
 
         return cell
     }

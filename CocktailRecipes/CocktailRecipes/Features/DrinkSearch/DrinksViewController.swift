@@ -96,7 +96,7 @@ extension DrinksViewController: UICollectionViewDataSource {
 		switch searchResultState {
 		case .notFiltered(let drinks), .filtered(let drinks):
 			let drink = drinks[indexPath.item]
-			cell.configure(image: nil, text: drink.name)
+            cell.configure(imageURL: drink.thumbURL, text: drink.name)
 		case .error:
 			return UICollectionViewCell()
 		}

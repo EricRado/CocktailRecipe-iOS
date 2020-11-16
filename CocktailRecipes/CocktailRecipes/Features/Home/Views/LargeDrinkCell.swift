@@ -55,8 +55,8 @@ final class LargeDrinkCell: UICollectionViewCell {
 		])
 	}
 
-	func configure(image: UIImage?, text: String) {
-		imageView.image = image
+	func configure(imageURL: String, text: String) {
+        imageView.loadImage(from: imageURL)
 		label.text = text
 	}
 }
