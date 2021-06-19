@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum NetworkError: String, Error {
 	case missingURL = "URL is nil."
@@ -50,6 +51,37 @@ final class NetworkManager {
 			completion(.failure(error))
 		}
 	}
+
+    func requestImage(_ urlString: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
+        guard let url = URL(string: urlString) else {
+            completion(.failure(NetworkError.missingURL))
+            return
+        }
+
+        let cache = URLCache.shared
+        let request = URLRequest(url: url)
+
+        if let cachedImageData = cache.cachedResponse(for: request),
+            let image = UIImage(data: cachedImageData.data) {
+            completion(.success(image))
+        } else {
+            session.downloadTask(with: url) { url, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                } else if let validURL = url,
+                    let response = response,
+                    let data = try? Data(contentsOf: validURL),
+                    let image = UIImage(data: data) {
+
+                    let cachedImageData = CachedURLResponse(response: response, data: data)
+                    cache.storeCachedResponse(cachedImageData, for: request)
+                    completion(.success(image))
+                } else {
+                    completion(.failure(NetworkError.unknown))
+                }
+            }.resume()
+        }
+    }
 
 	private func buildRequest(from endpoint: EndpointConstructable) throws -> URLRequest {
 		guard let url = URL(string: endpoint.baseURL)?.appendingPathComponent("\(apiKey)/\(endpoint.path)") else {

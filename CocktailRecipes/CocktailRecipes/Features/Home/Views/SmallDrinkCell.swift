@@ -73,8 +73,8 @@ final class SmallDrinkCell: UICollectionViewCell {
         ])
 	}
 
-    func configure(image: UIImage?, text: String, rank: Int?) {
-		imageView.image = image
+    func configure(imageURL: String, text: String, rank: Int?) {
+		imageView.loadImage(from: imageURL)
         titleLabel.text = text
 
         if let rank = rank {

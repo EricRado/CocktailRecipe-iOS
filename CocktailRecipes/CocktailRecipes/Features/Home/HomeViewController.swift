@@ -96,14 +96,14 @@ extension HomeViewController: UICollectionViewDataSource {
 				withReuseIdentifier: LargeDrinkCell.identifier, for: indexPath) as? LargeDrinkCell else {
 				return UICollectionViewCell()
 			}
-			cell.configure(image: nil, text: drink.name)
+            cell.configure(imageURL: drink.thumbURL, text: drink.name)
 			return cell
 		case .latest, .popular:
 			guard let cell = collectionView.dequeueReusableCell(
 				withReuseIdentifier: SmallDrinkCell.identifier, for: indexPath) as? SmallDrinkCell else {
 				return UICollectionViewCell()
 			}
-			cell.configure(image: nil, text: drink.name, rank: nil)
+			cell.configure(imageURL: drink.thumbURL, text: drink.name, rank: nil)
 			return cell
 		}
 
