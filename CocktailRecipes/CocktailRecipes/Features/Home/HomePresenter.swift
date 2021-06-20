@@ -8,18 +8,18 @@
 
 import Foundation
 
-protocol HomeViewDelegate: class {
+protocol HomeViewDelegate: AnyObject {
 	func reloadCollectionView(for section: Int)
 }
 
 final class HomePresenter {
 	weak var delegate: HomeViewDelegate?
-	private let networkManager: NetworkManager
-	private lazy var fetchPopularDrinksCompletion: (Result<DrinkResponse, Error>) -> Void = { [weak self] result in
+    private let drinkRepo: DrinkRepo
+	private lazy var fetchPopularDrinksCompletion: (Result<[Drink], Error>) -> Void = { [weak self] result in
 		guard let self = self else { return }
 		switch result {
-		case .success(let drinkResponse):
-			self.popularDrinks = drinkResponse.drinks
+		case .success(let drinks):
+			self.popularDrinks = drinks
             let sectionIndex = HomeSection.popular.rawValue
 			DispatchQueue.main.async {
 				self.delegate?.reloadCollectionView(for: sectionIndex)
@@ -29,11 +29,11 @@ final class HomePresenter {
 		}
 	}
 
-	private lazy var fetchLatestDrinksCompletion: (Result<DrinkResponse, Error>) -> Void = { [weak self] result in
+	private lazy var fetchLatestDrinksCompletion: (Result<[Drink], Error>) -> Void = { [weak self] result in
 		guard let self = self else { return }
 		switch result {
-		case .success(let drinkResponse):
-			self.latestDrinks = drinkResponse.drinks
+		case .success(let drinks):
+			self.latestDrinks = drinks
             let sectionIndex = HomeSection.latest.rawValue
 			DispatchQueue.main.async {
 				self.delegate?.reloadCollectionView(for: sectionIndex)
@@ -43,11 +43,11 @@ final class HomePresenter {
 		}
 	}
 
-	private lazy var fetchRandomDrinksCompletion: (Result<DrinkResponse, Error>) -> Void = { [weak self] result in
+	private lazy var fetchRandomDrinksCompletion: (Result<[Drink], Error>) -> Void = { [weak self] result in
 		guard let self = self else { return }
 		switch result {
-		case .success(let drinkResponse):
-			self.randomDrinks = drinkResponse.drinks
+		case .success(let drinks):
+			self.randomDrinks = drinks
             let sectionIndex = HomeSection.random.rawValue
 			DispatchQueue.main.async {
 				self.delegate?.reloadCollectionView(for: sectionIndex)
@@ -67,22 +67,22 @@ final class HomePresenter {
 	}
 
 	init(networkManager: NetworkManager) {
-		self.networkManager = networkManager
+		self.drinkRepo = DrinkRepo(networkManager: networkManager)
 		fetchPopularDrinks()
 		fetchLatestDrinks()
 		fetchRandomDrinks()
 	}
 
 	private func fetchPopularDrinks() {
-		networkManager.request(CocktailEndpoint.popular, completion: fetchPopularDrinksCompletion)
+        drinkRepo.fetchDrinks(by: .popular, completion: fetchPopularDrinksCompletion)
 	}
 
 	private func fetchLatestDrinks() {
-		networkManager.request(CocktailEndpoint.latest, completion: fetchLatestDrinksCompletion)
+        drinkRepo.fetchDrinks(by: .latest, completion: fetchLatestDrinksCompletion)
 	}
 
 	private func fetchRandomDrinks() {
-		networkManager.request(CocktailEndpoint.random, completion: fetchRandomDrinksCompletion)
+        drinkRepo.fetchDrinks(by: .random, completion: fetchRandomDrinksCompletion)
 	}
 
 	func dataSource(for sectionType: HomeSection) -> [Drink] {

@@ -51,6 +51,7 @@
 		A623EC0E267F05990026D327 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A623EC0D267F05990026D327 /* Ingredient.swift */; };
 		A623EC10267F067F0026D327 /* Drink.swift in Sources */ = {isa = PBXBuildFile; fileRef = A623EC0F267F067F0026D327 /* Drink.swift */; };
 		A623EC12267F08340026D327 /* DrinkRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A623EC11267F08340026D327 /* DrinkRepo.swift */; };
+		A623EC14267FAFD70026D327 /* DrinkResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A623EC13267FAFD70026D327 /* DrinkResponseType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		A623EC0D267F05990026D327 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		A623EC0F267F067F0026D327 /* Drink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drink.swift; sourceTree = "<group>"; };
 		A623EC11267F08340026D327 /* DrinkRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkRepo.swift; sourceTree = "<group>"; };
+		A623EC13267FAFD70026D327 /* DrinkResponseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkResponseType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				A623EC09267F02360026D327 /* SearchResultState.swift */,
+				A623EC13267FAFD70026D327 /* DrinkResponseType.swift */,
 			);
 			path = Enumerations;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				47E38EFB24C62DEA002115C0 /* SavedDrinksViewController.swift in Sources */,
 				A623EC0C267F04C00026D327 /* DomainModel.swift in Sources */,
 				A623EC0A267F02360026D327 /* SearchResultState.swift in Sources */,
+				A623EC14267FAFD70026D327 /* DrinkResponseType.swift in Sources */,
 				471C095224C78EBF00E573EB /* UICollectionViewCell+Extension.swift in Sources */,
 				A623EC07267EFD490026D327 /* IngredientRepo.swift in Sources */,
 				A623EC00267DA8460026D327 /* IngredientSlimListDTO.swift in Sources */,

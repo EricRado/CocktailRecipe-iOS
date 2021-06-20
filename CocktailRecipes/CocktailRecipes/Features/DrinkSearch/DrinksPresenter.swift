@@ -8,27 +8,21 @@
 
 import Foundation
 
-enum SearchResultState<T: Decodable> {
-	case notFiltered(drinks: T)
-	case filtered(drinks: T)
-	case error(message: String)
-}
-
 protocol DrinksPresenterDelegate: AnyObject {
 	func reloadCollectionView()
 }
 
 final class DrinksPresenter {
 	weak var delegate: DrinksPresenterDelegate?
-	private let networkManager: NetworkManager
+    private let drinkRepo: DrinkRepo
 	private var nonFilteredDrinks: [Drink]?
-	private(set) var searchResultState: SearchResultState<[Drink]> = .notFiltered(drinks: [])
+	private(set) var searchResultState: SearchResultState<[Drink]> = .notFiltered(models: [])
 
-	private lazy var fetchDrinksFilteredCompletionHandler: (Result<DrinkResponse, Error>) -> Void = { [weak self] result in
+	private lazy var fetchDrinksFilteredCompletionHandler: (Result<[Drink], Error>) -> Void = { [weak self] result in
 		guard let self = self else { return }
 		switch result {
-		case .success(let drinkResponse):
-			self.searchResultState = .filtered(drinks: drinkResponse.drinks)
+		case .success(let drinks):
+			self.searchResultState = .filtered(models: drinks)
 			DispatchQueue.main.async {
 				self.delegate?.reloadCollectionView()
 			}
@@ -40,12 +34,12 @@ final class DrinksPresenter {
 		}
 	}
 
-	private lazy var fetchDrinksCompletionHandler: (Result<DrinkResponse, Error>) -> Void = { [weak self] result in
+	private lazy var fetchDrinksCompletionHandler: (Result<[Drink], Error>) -> Void = { [weak self] result in
 		guard let self = self else { return }
 		switch result {
-		case .success(let drinkResponse):
-			self.nonFilteredDrinks = drinkResponse.drinks
-			self.searchResultState = .notFiltered(drinks: self.nonFilteredDrinks ?? [])
+		case .success(let drinks):
+			self.nonFilteredDrinks = drinks
+			self.searchResultState = .notFiltered(models: self.nonFilteredDrinks ?? [])
 			DispatchQueue.main.async {
 				self.delegate?.reloadCollectionView()
 			}
@@ -58,21 +52,20 @@ final class DrinksPresenter {
 	}
 
 	init(networkManager: NetworkManager) {
-		self.networkManager = networkManager
+		self.drinkRepo = DrinkRepo(networkManager: networkManager)
 	}
 
 	func fetchDrinks(with name: String) {
 		guard !name.isEmpty else {
 			if let nonFilteredDrinks = nonFilteredDrinks {
-				searchResultState = .notFiltered(drinks: nonFilteredDrinks)
+				searchResultState = .notFiltered(models: nonFilteredDrinks)
 				delegate?.reloadCollectionView()
 			} else {
-				networkManager.request(CocktailEndpoint.searchWithName(name), completion: fetchDrinksCompletionHandler)
+                drinkRepo.fetchAllDrinks(completion: fetchDrinksCompletionHandler)
 			}
 			return
 		}
 
-		networkManager.request(
-			CocktailEndpoint.searchWithName(name), completion: fetchDrinksFilteredCompletionHandler)
+        drinkRepo.fetchDrinks(with: name, completion: fetchDrinksFilteredCompletionHandler)
 	}
 }
