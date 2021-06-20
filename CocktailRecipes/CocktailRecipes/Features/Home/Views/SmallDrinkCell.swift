@@ -73,7 +73,7 @@ final class SmallDrinkCell: UICollectionViewCell {
         ])
 	}
 
-    func configure(imageURL: String, text: String, rank: Int?) {
+    func configure(imageURL: String?, text: String, rank: Int?) {
 		imageView.loadImage(from: imageURL)
         titleLabel.text = text
 

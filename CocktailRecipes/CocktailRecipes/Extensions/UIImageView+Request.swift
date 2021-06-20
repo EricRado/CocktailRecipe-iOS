@@ -9,7 +9,8 @@
 import UIKit
 
 extension UIImageView {
-    func loadImage(from url: String, networkManager: NetworkManager = NetworkManager()) {
+    func loadImage(from url: String?, networkManager: NetworkManager = NetworkManager()) {
+        guard let url = url else { return }
         networkManager.requestImage(url) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {

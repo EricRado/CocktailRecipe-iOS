@@ -16,6 +16,8 @@ struct IngredientSlim {
     }
 }
 
+extension IngredientSlim: DomainModel {}
+
 struct IngredientSlimList {
     let ingredients: [IngredientSlim]
     
@@ -23,3 +25,5 @@ struct IngredientSlimList {
         self.ingredients = (dto.ingredients ?? []).map { IngredientSlim(dto: $0) }
     }
 }
+
+extension IngredientSlimList: DomainModel {}
