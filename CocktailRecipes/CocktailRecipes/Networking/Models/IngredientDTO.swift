@@ -8,6 +8,10 @@
 
 import Foundation
 
+struct IngredientResponseDTO: Decodable {
+    let ingredients: [IngredientDTO]
+}
+
 struct IngredientDTO: Decodable {
 	let id: String?
 	let name: String?
